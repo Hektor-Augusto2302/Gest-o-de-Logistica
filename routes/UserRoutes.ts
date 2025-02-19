@@ -7,7 +7,7 @@ import validate from "../middlewares/handleValidation";
 
 const router = express.Router();
 
-router.post("/register/user", registerUser);
+router.post("/register/user", validate, registerUser);
 router.post("/register/admin", authGuard, registerAdminUser);
 router.post("/login", validate, login);
 

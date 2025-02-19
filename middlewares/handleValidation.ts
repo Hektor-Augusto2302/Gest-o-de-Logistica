@@ -5,10 +5,9 @@ const validate = (req: Request, res: Response, next: NextFunction): void => {
     const errors = validationResult(req);
 
     if (errors.isEmpty()) {
-        return next(); // Passa para o próximo middleware ou a função de rota
+        return next();
     }
 
-    // Extrair erros e enviá-los como uma resposta JSON
     const extractedErrors: string[] = [];
     errors.array().map((err) => extractedErrors.push(err.msg));
 
