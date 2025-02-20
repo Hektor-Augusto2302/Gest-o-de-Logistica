@@ -11,7 +11,7 @@ const productSchema = new Schema<IProduct>(
         salePrice: { type: Number, required: true },
         unit: { type: String, required: true },
         category: { type: String, required: true },
-        suppliers: [{ type: Schema.Types.ObjectId, ref: "Supplier" }],
+        suppliers: [{ type: String }],
         minStock: { type: Number, default: 1 }
     },
     { timestamps: true }
