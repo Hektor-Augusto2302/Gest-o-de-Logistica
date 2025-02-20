@@ -26,7 +26,7 @@ const authGuard = async (req: AuthenticatedRequest, res: Response, next: NextFun
                 return;
             }
 
-            req.user = { id: user._id.toString(), role: user.role };
+            req.user = { _id: user._id.toString(), role: user.role };
             next();
         } else {
             res.status(401).json({ errors: ["Token inválido"] });

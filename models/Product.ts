@@ -12,7 +12,8 @@ const productSchema = new Schema<IProduct>(
         unit: { type: String, required: true },
         category: { type: String, required: true },
         suppliers: [{ type: String }],
-        minStock: { type: Number, default: 1 }
+        minStock: { type: Number, default: 1 },
+        createdBy: { type: Schema.Types.ObjectId, ref: "User", required: true }
     },
     { timestamps: true }
 );

@@ -11,4 +11,5 @@ export interface IProduct extends Document {
     category: string;
     suppliers: string[];
     minStock: number;
+    createdBy: Types.ObjectId;
 }
