@@ -147,18 +147,15 @@ const updateProfile = async (req: AuthenticatedRequest, res: Response): Promise<
             return;
         }
 
-        // Atualiza o nome se fornecido
         if (name) {
             user.name = name.trim();
         }
 
-        // Atualiza a senha se fornecida
         if (password) {
             const salt = await bcrypt.genSalt(10);
             user.password = await bcrypt.hash(password.trim(), salt);
         }
 
-        // Atualiza a imagem se fornecida
         if (profileImage) {
             user.profileImage = profileImage;
         }
@@ -180,4 +177,25 @@ const updateProfile = async (req: AuthenticatedRequest, res: Response): Promise<
     }
 };
 
-export { generateToken, registerUser, registerAdminUser, login, updateProfile };
+const getCurrentUser = async (req: AuthenticatedRequest, res: Response): Promise<void> => {
+    try {
+        if (!req.user) {
+            res.status(401).json({ error: "Usuário não autenticado" });
+            return;
+        }
+
+        const user = await User.findById(req.user._id).select("name email profileImage");
+
+        if (!user) {
+            res.status(404).json({ error: "Usuário não encontrado" });
+            return;
+        }
+
+        res.status(200).json(user);
+    } catch (error) {
+        console.error("Erro ao buscar usuário:", error);
+        res.status(500).json({ error: "Erro interno do servidor" });
+    }
+};
+
+export { generateToken, registerUser, registerAdminUser, login, updateProfile, getCurrentUser };
