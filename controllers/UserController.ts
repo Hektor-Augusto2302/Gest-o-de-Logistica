@@ -131,4 +131,53 @@ const login = async (req: Request, res: Response): Promise<void> => {
     }
 };
 
-export { generateToken, registerUser, registerAdminUser, login };
+const updateProfile = async (req: AuthenticatedRequest, res: Response): Promise<void> => {
+    try {
+        if (!req.user) {
+            res.status(401).json({ error: "Usuário não autenticado." });
+            return;
+        }
+
+        const { name, password } = req.body;
+        let profileImage = req.file ? req.file.filename : undefined;
+
+        const user = await User.findById(req.user._id);
+        if (!user) {
+            res.status(404).json({ error: "Usuário não encontrado." });
+            return;
+        }
+
+        // Atualiza o nome se fornecido
+        if (name) {
+            user.name = name.trim();
+        }
+
+        // Atualiza a senha se fornecida
+        if (password) {
+            const salt = await bcrypt.genSalt(10);
+            user.password = await bcrypt.hash(password.trim(), salt);
+        }
+
+        // Atualiza a imagem se fornecida
+        if (profileImage) {
+            user.profileImage = profileImage;
+        }
+
+        await user.save();
+
+        res.status(200).json({ 
+            message: "Perfil atualizado com sucesso!", 
+            user: { 
+                _id: user._id, 
+                name: user.name, 
+                email: user.email, 
+                profileImage: user.profileImage 
+            } 
+        });
+    } catch (error) {
+        console.error("Erro ao atualizar perfil:", error);
+        res.status(500).json({ error: "Erro interno do servidor." });
+    }
+};
+
+export { generateToken, registerUser, registerAdminUser, login, updateProfile };
