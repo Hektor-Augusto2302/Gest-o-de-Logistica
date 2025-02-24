@@ -69,6 +69,29 @@ const updateProduct = async (req: AuthenticatedRequest, res: Response): Promise<
     }
 };
 
+const deleteProduct = async (req: AuthenticatedRequest, res: Response): Promise<void> => {
+    try {
+        if (!req.user || req.user.role !== "admin") {
+            res.status(403).json({ error: "Apenas administradores podem excluir produtos" });
+            return;
+        }
+
+        const { id } = req.params;
+
+        const product = await Product.findById(id);
+        if (!product) {
+            res.status(404).json({ message: "Produto não encontrado" });
+            return;
+        }
+
+        await Product.findByIdAndDelete(id);
+
+        res.status(200).json({ message: "Produto deletado com sucesso!" });
+    } catch (error) {
+        res.status(500).json({ message: "Erro ao deletar produto", error });
+    }
+};
+
 const getProducts = async (req: Request, res: Response): Promise<void> => {
     try {
         const products = await Product.find()
@@ -81,4 +104,4 @@ const getProducts = async (req: Request, res: Response): Promise<void> => {
     }
 };
 
-export { createProduct, updateProduct, getProducts };
+export { createProduct, updateProduct, deleteProduct, getProducts };
