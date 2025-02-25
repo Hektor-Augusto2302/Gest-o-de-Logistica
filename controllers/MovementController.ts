@@ -102,6 +102,52 @@ const updateMovement = async (req: AuthenticatedRequest, res: Response): Promise
     }
 };
 
+const deleteMovement = async (req: AuthenticatedRequest, res: Response): Promise<void> => {
+    try {
+        if (!req.user) {
+            res.status(401).json({ error: "Usuário não autenticado" });
+            return;
+        }
+
+        const { id } = req.params;
+
+        const movement = await Movement.findById(id);
+        if (!movement) {
+            res.status(404).json({ error: "Movimentação não encontrada" });
+            return;
+        }
+
+        const product = await Product.findById(movement.product);
+        if (!product) {
+            res.status(404).json({ error: "Produto associado não encontrado" });
+            return;
+        }
+
+        if (movement.createdBy.toString() !== req.user._id.toString() && req.user.role !== "admin") {
+            res.status(403).json({ error: "Você não tem permissão para excluir esta movimentação" });
+            return;
+        }
+
+        if (movement.type === "saida") {
+            product.quantity += movement.movementQuantity;
+        } else if (movement.type === "entrada") {
+            if (product.quantity < movement.movementQuantity) {
+                res.status(400).json({ error: "Não é possível excluir esta entrada, pois removeria mais do que o disponível em estoque" });
+                return;
+            }
+            product.quantity -= movement.movementQuantity;
+        }
+
+        await product.save();
+        await movement.deleteOne();
+
+        res.status(200).json({ message: "Movimentação excluída com sucesso!" });
+    } catch (error) {
+        console.error("Erro ao excluir movimentação:", error);
+        res.status(500).json({ error: "Erro interno do servidor" });
+    }
+};
+
 const getMovements = async (req: Request, res: Response): Promise<void> => {
     try {
         const movements = await Movement.find()
@@ -116,4 +162,4 @@ const getMovements = async (req: Request, res: Response): Promise<void> => {
     }
 };
 
-export { createMovement, updateMovement, getMovements };
+export { createMovement, updateMovement, deleteMovement, getMovements };
