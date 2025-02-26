@@ -10,6 +10,8 @@ const movementSchema = new Schema<IMovement>(
             min: [1, "A quantidade deve ser no mínimo 1"] 
         },
         type: { type: String, enum: ["entrada", "saida"], required: true },
+        unitPrice: { type: Number, required: true },
+        totalPrice: { type: Number, required: true },
         date: { type: Date, default: Date.now },
         createdBy: { type: Schema.Types.ObjectId, ref: "User", required: true }
     },

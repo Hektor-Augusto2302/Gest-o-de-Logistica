@@ -26,10 +26,15 @@ const createMovement = async (req: AuthenticatedRequest, res: Response): Promise
             return;
         }
 
+        const unitPrice = type === "entrada" ? existingProduct.costPrice : existingProduct.salePrice;
+        const totalPrice = unitPrice * movementQuantity;
+
         const movement = new Movement({
             product: existingProduct._id,
             movementQuantity,
             type,
+            unitPrice,
+            totalPrice,
             createdBy: req.user._id
         });
 
@@ -153,7 +158,7 @@ const getMovements = async (req: Request, res: Response): Promise<void> => {
         const movements = await Movement.find()
             .populate("product", "name code")
             .populate("createdBy", "name email")
-            .select("product movementQuantity type date createdBy");
+            .select("product movementQuantity type unitPrice totalPrice date createdBy");
 
         res.status(200).json(movements);
     } catch (error) {
