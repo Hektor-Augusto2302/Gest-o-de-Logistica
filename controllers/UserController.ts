@@ -184,7 +184,7 @@ const getCurrentUser = async (req: AuthenticatedRequest, res: Response): Promise
             return;
         }
 
-        const user = await User.findById(req.user._id).select("name email profileImage");
+        const user = await User.findById(req.user._id).select("name email profileImage role");
 
         if (!user) {
             res.status(404).json({ error: "Usuário não encontrado" });
