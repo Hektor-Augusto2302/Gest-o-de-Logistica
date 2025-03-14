@@ -1,0 +1,56 @@
+/* @tailwind base; */
+@tailwind components;
+@tailwind utilities;
+
+body {
+    background-color: #EDF0F2;
+    margin: 0;
+}
+
+.user-form {
+    background-color: #fff;
+}
+
+.input-form {
+    height: 30px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    background-color: #f3f4f6;
+    font-size: 16px;
+    outline: none;
+    transition: border 0.3s ease-in-out;
+}
+
+.input-form:focus {
+    border-color: #2563eb;
+}
+
+.button-form {
+    height: 50px;
+    background-color: #1a2266;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.button-form:hover {
+    background-color: #222c8b;
+    transform: scale(1.05);
+}
+
+.button-form:active {
+    background-color: #203b96;
+    transform: scale(0.98);
+}
+
+.navbar {
+    background-color: #fff;
+}
+
+.sidebar {
+    background-color: #101540;
+}
