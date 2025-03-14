@@ -24,8 +24,8 @@ export default function Layout({ children }: LayoutProps) {
             <div className="flex flex-1">
                 {!hideLayout && <Sidebar isOpen={isSidebarOpen} />}
                 <main
-                    className={`flex-1 overflow-auto pt-20 px-10 mt-10 ${
-                        !hideLayout ? (isSidebarOpen ? "ml-40" : "ml-16") : "ml-0"
+                    className={`flex-1 overflow-auto ${
+                        hideLayout ? "" : `pt-10 px-10 mt-10 ${isSidebarOpen ? "ml-40" : "ml-16"}`
                     }`}
                 >
                     {children}
