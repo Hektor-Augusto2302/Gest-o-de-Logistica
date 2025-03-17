@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 export const useAuth = () => {
-    const [user, setUser] = useState<User | null | undefined>(undefined);
+    const [user, setUser] = useState<User | null>(null);
     const [isLoading, setIsLoading] = useState(true);
     const [message, setMessage] = useState<{ text: string; type: "success" | "error" } | null>(null);
     const router = useRouter();

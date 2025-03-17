@@ -47,7 +47,7 @@ export default function Sidebar({ isOpen }: SidebarProps) {
                     </Link>
                 )}
 
-                <Link href="/contact" className="flex text-white flex-col items-center hover:text-gray-400 
+                <Link href='/profile' className="flex text-white flex-col items-center hover:text-gray-400 
                     transition no-underline"
                 >
                     <Image 
@@ -56,7 +56,7 @@ export default function Sidebar({ isOpen }: SidebarProps) {
                         height={24}
                         alt="Imagem da dashboard"
                     />
-                    {isOpen && <span className="text-sm mt-3">Contato</span>}
+                    {isOpen && <span className="text-sm mt-3">Perfil</span>}
                 </Link>
             </nav>
         </aside>
