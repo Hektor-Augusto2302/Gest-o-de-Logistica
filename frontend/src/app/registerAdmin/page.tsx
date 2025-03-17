@@ -1,10 +1,10 @@
-import PublicRoute from "@/components/auth/PublicRoute";
+import AdminRoute from "@/components/auth/AdminRoute";
 import RegisterFormAdmin from "@/components/RegisterAdminForm/RegisterAdminForm";
 
 export default function Register () {
     return (
-        <PublicRoute>
+        <AdminRoute>
             <RegisterFormAdmin />
-        </PublicRoute>
+        </AdminRoute>
     )
 }

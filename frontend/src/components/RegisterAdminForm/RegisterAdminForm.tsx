@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
 
 export default function RegisterFormAdmin() {
-    const { register, message } = useAuth();
+    const { register } = useAuth();
 
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -12,7 +12,7 @@ export default function RegisterFormAdmin() {
     const [confirmPassword, setConfirmPassword] = useState("");
     const [isSubmitting, setIsSubmitting] = useState(false);
 
-    const handleRegister = async (e: any) => {
+    const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         setIsSubmitting(true);
