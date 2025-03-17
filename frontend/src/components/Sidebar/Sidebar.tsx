@@ -46,18 +46,6 @@ export default function Sidebar({ isOpen }: SidebarProps) {
                         {isOpen && <span className="text-sm mt-3">Registro de Admin</span>}
                     </Link>
                 )}
-
-                <Link href='/profile' className="flex text-white flex-col items-center hover:text-gray-400 
-                    transition no-underline"
-                >
-                    <Image 
-                        src={DashboardImage} 
-                        width={24}
-                        height={24}
-                        alt="Imagem da dashboard"
-                    />
-                    {isOpen && <span className="text-sm mt-3">Perfil</span>}
-                </Link>
             </nav>
         </aside>
     );

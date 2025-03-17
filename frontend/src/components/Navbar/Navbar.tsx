@@ -6,6 +6,7 @@ import Menu from "../../../public/Menu.svg";
 import Image from "next/image";
 import { useAuth } from "@/hooks/useAuth";
 import ArrowDown from "./components/ArrowDown";
+import Link from "next/link";
 
 interface NavbarProps {
     toggleSidebar: () => void;
@@ -46,12 +47,9 @@ export default function Navbar({ toggleSidebar }: NavbarProps) {
 
                         {isDropdownOpen && (
                             <div className="absolute right-0 mt-2 w-48 bg-gray-800 rounded-lg shadow-lg py-2">
-                                <a href="#" className="block px-4 py-2 text-white hover:bg-gray-700">
+                                <Link href="/profile" className="block px-4 py-2 text-white hover:bg-gray-700">
                                     Perfil
-                                </a>
-                                <a href="#" className="block px-4 py-2 text-white hover:bg-gray-700">
-                                    Configurações
-                                </a>
+                                </Link>
                                 <button onClick={logout}  className="block w-full text-left border-none hover:bg-gray-700 px-4 py-2 text-red-400 bg-transparent cursor-pointer">
                                     Sair
                                 </button>

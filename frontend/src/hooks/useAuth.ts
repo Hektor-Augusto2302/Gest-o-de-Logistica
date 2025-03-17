@@ -4,6 +4,7 @@ import { loginData, RegisterData, User } from "@/interfaces/IUser";
 import api from "@/utils/api";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { AxiosError } from "axios";
 
 export const useAuth = () => {
     const [user, setUser] = useState<User | null>(null);
@@ -70,11 +71,14 @@ export const useAuth = () => {
             authUser(response.data);
 
             setMessage({ text: "Cadastro realizado com sucesso!", type: "success" });
-        } catch (error: any) {
-            const errorMessage = error.response?.data?.errors || "Erro desconhecido no registro";
-            setMessage({ text: errorMessage, type: "error" });
+        } catch (error: unknown) {
+            if (error instanceof AxiosError) {
+                const errorMessage = error.response?.data?.errors || "Erro desconhecido no registro";
+                setMessage({ text: errorMessage, type: "error" });
+            } else {
+                setMessage({ text: "Erro desconhecido no registro", type: "error" });
+            }
         }
-
     };
 
     const login = async (userData: loginData) => {

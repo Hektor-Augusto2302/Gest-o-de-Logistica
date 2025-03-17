@@ -1,12 +1,15 @@
 import { useAuth } from "@/hooks/useAuth";
+import { useUpdateUser } from "@/hooks/useUpdateUser";
 import { useEffect, useState } from "react";
 
 export default function ProfileForm() {
     const { user, isLoading } = useAuth();
+    const { updateUser }  = useUpdateUser();
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
+    const [profileImage, setProfileImage] = useState<File | null>(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     useEffect(() => {
@@ -16,19 +19,32 @@ export default function ProfileForm() {
         }
     }, [user]);
 
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files && e.target.files[0]) {
+            setProfileImage(e.target.files[0]);
+        }
+    };
+
     const handleUpdateProfile = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
+        if (!user?._id) {
+            console.error("Usuário não autenticado");
+            return;
+        }
+
         setIsSubmitting(true);
 
-        const updatedUser = {
-            name,
-            email,
-            password,
-            confirmPassword,
-        };
+        const formData = new FormData();
+        formData.append("name", name);
+        formData.append("password", password);
+        formData.append("confirmPassword", confirmPassword);
 
-        console.log(updatedUser);
+        if (profileImage) {
+            formData.append("profileImage", profileImage);
+        }
+
+        await updateUser(user._id, formData);
 
         setTimeout(() => {
             setIsSubmitting(false);
@@ -65,7 +81,7 @@ export default function ProfileForm() {
                             className="input-form"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            required
+                            readOnly
                         />
                     </div>
                     <div className="flex flex-col mt-4">
@@ -86,6 +102,14 @@ export default function ProfileForm() {
                             className="input-form"
                             value={confirmPassword}
                             onChange={(e) => setConfirmPassword(e.target.value)}
+                        />
+                    </div>
+                    <div className="flex flex-col mt-4">
+                        <label className="label-form">Imagem de Perfil</label>
+                        <input
+                            type="file"
+                            accept="image/*"
+                            onChange={handleFileChange}
                         />
                     </div>
                     <div className="flex justify-center mt-6">
