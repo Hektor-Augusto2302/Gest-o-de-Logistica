@@ -46,6 +46,20 @@ export default function Sidebar({ isOpen }: SidebarProps) {
                         {isOpen && <span className="text-sm mt-3">Registro de Admin</span>}
                     </Link>
                 )}
+
+                {user?.role === "admin" && (
+                    <Link href="/registerProduct" className="flex text-white flex-col items-center hover:text-gray-400 
+                        transition no-underline"
+                    >
+                        <Image 
+                            src={DashboardImage} 
+                            width={24}
+                            height={24}
+                            alt="Imagem da dashboard"
+                        />
+                        {isOpen && <span className="text-sm mt-3">Registro de Produtos</span>}
+                    </Link>
+                )}
             </nav>
         </aside>
     );

@@ -5,8 +5,8 @@ import { Search, Bell, UserCircle } from "lucide-react";
 import Menu from "../../../public/Menu.svg";
 import Image from "next/image";
 import { useAuth } from "@/hooks/useAuth";
-import ArrowDown from "./components/ArrowDown";
 import Link from "next/link";
+import { uploads } from "@/utils/upload";
 
 interface NavbarProps {
     toggleSidebar: () => void;
@@ -14,7 +14,7 @@ interface NavbarProps {
 
 export default function Navbar({ toggleSidebar }: NavbarProps) {
 
-    const { logout } = useAuth()
+    const { logout, user } = useAuth()
 
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
@@ -37,12 +37,18 @@ export default function Navbar({ toggleSidebar }: NavbarProps) {
                             onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                             className="flex items-center gap-2 border-none bg-transparent cursor-pointer"
                         >
-                            <UserCircle size={32} className="text-gray-300" />
-                            <p>Hektor Augusto</p>
-                            <ArrowDown 
-                                size={15}
-                                color="black"
-                            />
+                            {user?.profileImage ? (
+                                <Image 
+                                    src={`${uploads}/users/${user.profileImage}`} 
+                                    alt="Foto de perfil" 
+                                    width={32} 
+                                    height={32} 
+                                    className="w-8 h-8 rounded-full object-cover" 
+                                />
+                            ) : (
+                                <UserCircle size={32} className="text-gray-300" />
+                            )}
+                            <p>{user ? user.name : "Visitante"}</p>
                         </button>
 
                         {isDropdownOpen && (

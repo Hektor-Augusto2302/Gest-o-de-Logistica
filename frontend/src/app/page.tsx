@@ -9,7 +9,7 @@ export default function Home() {
 
   return (
     <PublicRoute>
-      <h1 className="text-center">Seja Bem-Vindo {user ? user.name : "Visitante"}</h1>
+      <h1 className="text-center">Seja Bem-Vinda (o) {user ? user.name : "Visitante"}</h1>
     </PublicRoute>
   );
 }
