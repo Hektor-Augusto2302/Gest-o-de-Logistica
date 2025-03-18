@@ -1,27 +1,39 @@
 import { useAuth } from "@/hooks/useAuth";
 import { useUpdateUser } from "@/hooks/useUpdateUser";
+import { uploads } from "@/utils/upload";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 export default function ProfileForm() {
     const { user, isLoading } = useAuth();
-    const { updateUser }  = useUpdateUser();
+    const { updateUser, message }  = useUpdateUser();
+    const router = useRouter();
+
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [profileImage, setProfileImage] = useState<File | null>(null);
+    const [previewImage, setPreviewImage] = useState<string | null>(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     useEffect(() => {
         if (user) {
             setName(user.name);
             setEmail(user.email);
+
+            if (user.profileImage) {
+                setPreviewImage(`${uploads}/users/${user.profileImage}`);
+            }
         }
     }, [user]);
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files[0]) {
+            const file = e.target.files[0];
             setProfileImage(e.target.files[0]);
+            setPreviewImage(URL.createObjectURL(file));
         }
     };
 
@@ -48,6 +60,7 @@ export default function ProfileForm() {
 
         setTimeout(() => {
             setIsSubmitting(false);
+            router.push("/");
         }, 3000);
     };
 
@@ -61,8 +74,37 @@ export default function ProfileForm() {
                 <h2 className="text-black text-center text-lg sm:text-xl font-semibold mb-4">
                     Atualizar Perfil
                 </h2>
+                {message && (
+                    <div
+                        className={`text-center p-2 mb-3 rounded ${
+                            message.type === "success" ? "bg-green-500 text-white" : "bg-red-500 text-white"
+                        }`}
+                    >
+                        {message.text}
+                    </div>
+                )}
                 <form onSubmit={handleUpdateProfile} className="w-full">
+                {previewImage && (
+                    <div className="flex justify-center mb-4">
+                        <Image 
+                        src={previewImage}
+                        width={200}
+                        height={200}
+                        alt="Preview" 
+                        className="w-40 h-40 object-cover rounded-full border border-gray-300"
+                        quality={100}
+                        />
+                    </div>
+                )}
                     <div className="flex flex-col">
+                        <label className="label-form">Imagem de Perfil</label>
+                        <input
+                            type="file"
+                            accept="image/*"
+                            onChange={handleFileChange}
+                        />
+                    </div>
+                    <div className="flex flex-col mt-4">
                         <label className="label-form">Nome</label>
                         <input
                             type="text"
@@ -102,14 +144,6 @@ export default function ProfileForm() {
                             className="input-form"
                             value={confirmPassword}
                             onChange={(e) => setConfirmPassword(e.target.value)}
-                        />
-                    </div>
-                    <div className="flex flex-col mt-4">
-                        <label className="label-form">Imagem de Perfil</label>
-                        <input
-                            type="file"
-                            accept="image/*"
-                            onChange={handleFileChange}
                         />
                     </div>
                     <div className="flex justify-center mt-6">

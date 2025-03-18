@@ -7,7 +7,7 @@ export const useUpdateUser = () => {
     const [message, setMessage] = useState<{ text: string; type: "success" | "error" } | null>(null);
     const [isUpdating, setIsUpdating] = useState(false);
 
-    const updateUser = async (id: string, formData: FormData) => {
+    const updateUser = async (id: string, formData: FormData): Promise<User | undefined> => {
         setMessage(null);
         setIsUpdating(true);
 
@@ -30,6 +30,7 @@ export const useUpdateUser = () => {
         } finally {
             setIsUpdating(false);
         }
+        return undefined;
     };
 
     return { updateUser, isUpdating, message };
