@@ -26,48 +26,45 @@ export default function Form({
 
     return (
         <form onSubmit={handleRegisterProduct} className="w-full">
-            <div className="flex flex-col">
-                <label className="label-form">Nome</label>
-                <input
-                    type="text"
-                    name="name"
-                    className="input-form"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    required
-                />
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="flex flex-col">
+                    <label className="label-form">Nome</label>
+                    <input
+                        type="text"
+                        className="input-form"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                    />
+                </div>
+                <div className="flex flex-col">
+                    <label className="label-form">E-mail</label>
+                    <input
+                        type="email"
+                        className="input-form"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
+                </div>
+                <div className="flex flex-col">
+                    <label className="label-form">Senha</label>
+                    <input
+                        type="password"
+                        className="input-form"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
+                </div>
+                <div className="flex flex-col">
+                    <label className="label-form">Confirmar Senha</label>
+                    <input
+                        type="password"
+                        className="input-form"
+                        value={confirmPassword}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
+                    />
+                </div>
             </div>
-            <div className="flex flex-col mt-4">
-                <label className="label-form">E-mail</label>
-                <input
-                    type="email"
-                    name="email"
-                    className="input-form"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    readOnly
-                />
-            </div>
-            <div className="flex flex-col mt-4">
-                <label className="label-form">Senha</label>
-                <input
-                    type="password"
-                    name="password"
-                    className="input-form"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                />
-            </div>
-            <div className="flex flex-col mt-4">
-                <label className="label-form">Confirmar Senha</label>
-                <input
-                    type="password"
-                    name="confirmPassword"
-                    className="input-form"
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                />
-            </div>
+
             <div className="flex justify-center mt-6">
                 <button type="submit" className="w-full button-form">
                     Cadastrar Produto
