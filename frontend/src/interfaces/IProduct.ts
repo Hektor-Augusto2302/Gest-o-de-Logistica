@@ -1,4 +1,5 @@
 export interface IProduct {
+    _id: string;
     name: string;
     code: string;
     quantity: number;
@@ -9,5 +10,5 @@ export interface IProduct {
     category: string;
     suppliers?: string[];
     minStock?: number;
-    createdBy: string;
+    createdBy: string | undefined;
 }

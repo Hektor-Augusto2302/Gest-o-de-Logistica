@@ -5,13 +5,14 @@ import api from "@/utils/api";
 import { useState } from "react";
 import { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
+import { INewProduct } from "@/interfaces/INewProduct";
 
 export const useRegisterProduct = () => {
     const [message, setMessage] = useState<{ text: string; type: "success" | "error" } | null>(null);
     const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
 
-    const registerProduct = async (productData: IProduct) => {
+    const registerProduct = async (productData: IProduct | INewProduct) => {
         setMessage(null);
         setIsLoading(true);
 
