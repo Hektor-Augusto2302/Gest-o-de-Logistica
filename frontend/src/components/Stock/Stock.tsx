@@ -5,6 +5,7 @@ import { Search } from "lucide-react";
 import { useEffect, useState } from "react";
 import StockTable from "./components/StockTable/StockTable";
 import { useGetProducts } from "@/hooks/useGetProducts";
+import { getStockStatus } from "./utils/getStockStatus";
 
 export default function Stock() {
     const [status, setStatus] = useState("");
@@ -13,6 +14,13 @@ export default function Stock() {
     useEffect(() => {
         getProducts();
     }, []);
+
+    const filteredProducts = products?.filter((product) => {
+        const stockStatus = getStockStatus(product.quantity ?? 0, product.minStock ?? 0);
+
+        if (status === "") return true;
+        return stockStatus === status;
+    });
 
     return (
         <div className="user-form p-5">
@@ -45,10 +53,10 @@ export default function Stock() {
                     onChange={(e) => setStatus(e.target.value)}
                 >
                     <option value="">Todos</option>
-                    <option value="disponivel">Estoque Alto</option>
-                    <option value="disponivel">Estoque Médio</option>
-                    <option value="disponivel">Estoque Baixo</option>
-                    <option value="esgotado">Sem Estoque</option>
+                    <option value="estoque_alto">Estoque Alto</option>
+                    <option value="estoque_medio">Estoque Médio</option>
+                    <option value="estoque_baixo">Estoque Baixo</option>
+                    <option value="sem_estoque">Sem Estoque</option>
                 </select>
             </div>
 
@@ -57,7 +65,7 @@ export default function Stock() {
             {isLoading && <p>Carregando produtos...</p>}
             {message && <p>{message.text}</p>}
 
-            <StockTable products={products} />
+            <StockTable products={filteredProducts} />
         </div>
     );
 }
