@@ -54,3 +54,7 @@ body {
 .sidebar {
     background-color: #101540;
 }
+
+.border-table {
+    border-bottom: 4px solid #d1d5db;
+}
