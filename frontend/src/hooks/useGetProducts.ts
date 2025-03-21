@@ -1,14 +1,14 @@
 import { IProduct } from "@/interfaces/IProduct";
 import api from "@/utils/api";
 import { AxiosError } from "axios";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 
 export const useGetProducts = () => {
     const [products, setProducts] = useState<IProduct[]>([]);
     const [isLoading, setIsLoading] = useState(false);
     const [message, setMessage] = useState<{ text: string; type: "success" | "error" } | null>(null);
 
-    const getProducts = async () => {
+    const getProducts = useCallback(async () => {
         setIsLoading(true);
         try {
             const response = await api.get("/api/product");
@@ -23,7 +23,7 @@ export const useGetProducts = () => {
                 setMessage({ text: "Erro desconhecido ao obter os produtos", type: "error" });
             }
         }
-    };
+    }, []);
 
     return { products, getProducts, isLoading, message };
 };
