@@ -36,7 +36,7 @@ export default function Stock() {
     };
 
     return (
-        <div className="user-form p-5">
+        <div className="user-form">
             <div className="flex justify-between items-center mx-3 pb-3 border-b border-gray-300 max-sm:flex-col max-sm:items-start max-sm:gap-3">
                 <h1 className="text-blue-500 font-semibold">Em Estoque</h1>
                 <button
