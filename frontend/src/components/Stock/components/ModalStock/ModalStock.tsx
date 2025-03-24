@@ -11,22 +11,24 @@ export default function ModalStock({ selectedProducts, isModalOpen, setIsModalOp
     if (!isModalOpen) return null;
 
     return (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 p-3">
-            <div className="bg-white w-full max-w-lg sm:w-1/3 p-3 sm:p-5 rounded-md shadow-lg">
-                <div className="flex justify-between items-center mb-3">
-                    <h2 className="text-lg font-semibold">Produtos Selecionados</h2>
-                    <button onClick={() => setIsModalOpen(false)}>
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 p-3">
+            <div className="bg-white w-full max-w-lg sm:max-w-2xl p-4 sm:p-6 rounded-md shadow-lg">
+                {/* Cabeçalho da Modal */}
+                <div className="flex justify-between items-center mb-4">
+                    <h2 className="text-lg sm:text-xl font-semibold">Produtos Selecionados</h2>
+                    <button onClick={() => setIsModalOpen(false)} className="text-gray-600 hover:text-red-500">
                         <X className="w-6 h-6 cursor-pointer" />
                     </button>
                 </div>
 
+                {/* Conteúdo da Tabela */}
                 <div className="overflow-x-auto">
-                    <table className="min-w-full border-collapse">
+                    <table className="w-full border-collapse">
                         <thead>
                             <tr className="text-left text-sm bg-gray-100">
                                 <th className="px-2 sm:px-4 py-2">Código</th>
                                 <th className="px-2 sm:px-4 py-2">Nome</th>
-                                <th className="px-2 sm:px-4 py-2">Categoria</th>
+                                <th className="px-2 sm:px-4 py-2 hidden sm:table-cell">Categoria</th>
                                 <th className="px-2 sm:px-4 py-2">Quantidade</th>
                                 <th className="px-2 sm:px-4 py-2">Movimentação</th>
                             </tr>
@@ -34,10 +36,10 @@ export default function ModalStock({ selectedProducts, isModalOpen, setIsModalOp
                         <tbody>
                             {selectedProducts.length > 0 ? (
                                 selectedProducts.map((product) => (
-                                    <tr key={product._id} className="border-b">
+                                    <tr key={product._id} className="border-b text-sm sm:text-base">
                                         <td className="px-2 sm:px-4 py-2">{product.code || "N/A"}</td>
                                         <td className="px-2 sm:px-4 py-2">{product.name || "N/A"}</td>
-                                        <td className="px-2 sm:px-4 py-2">{product.category || "N/A"}</td>
+                                        <td className="px-2 sm:px-4 py-2 hidden sm:table-cell">{product.category || "N/A"}</td>
                                         <td className="px-2 sm:px-4 py-2">
                                             <input 
                                                 type="number" 
