@@ -1,4 +1,5 @@
 import { Document, Types } from "mongoose";
+
 export interface IMovement extends Document {
     product: Types.ObjectId;
     movementQuantity: number;
