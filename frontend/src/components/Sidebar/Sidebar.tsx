@@ -22,7 +22,7 @@ export default function Sidebar({ isOpen, isMobile }: SidebarProps) {
             )}
 
             <aside
-                className={`fixed top-16 left-0 h-[calc(100vh-4rem)] p-4 transition-all duration-300 bg-gray-900 text-white z-50
+                className={`fixed top-20 left-0 h-[calc(100vh-4rem)] p-4 transition-all duration-300 bg-gray-900 text-white z-50
                     ${isOpen ? "w-40" : "w-16"}
                     ${isMobile ? (isOpen ? "translate-x-0" : "-translate-x-full") : "translate-x-0"}
                 `}
@@ -51,6 +51,11 @@ export default function Sidebar({ isOpen, isMobile }: SidebarProps) {
                             {isOpen && <span className="text-sm mt-3">Registro de Produtos</span>}
                         </Link>
                     )}
+
+                    <Link href="/movement" className="flex text-white flex-col items-center hover:text-gray-400 transition no-underline">
+                        <Image src={DashboardImage} width={24} height={24} alt="Dashboard" />
+                        {isOpen && <span className="text-sm mt-3">Entrada/Saida</span>}
+                    </Link>
                 </nav>
             </aside>
         </>

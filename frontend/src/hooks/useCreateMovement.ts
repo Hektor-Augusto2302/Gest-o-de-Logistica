@@ -1,29 +1,18 @@
 import { useState } from "react";
 import api from "@/utils/api";
 import { AxiosError } from "axios";
-import { IMovement } from "@/interfaces/IMovement";
+import { IMovementRequest } from "@/interfaces/IMovement";
 
 export const useStockMovement = () => {
     const [message, setMessage] = useState<{ text: string; type: "success" | "error" } | null>(null);
     const [isLoading, setIsLoading] = useState(false);
 
-    const createMovement = async (movementData: IMovement) => {
+    const createMovement = async (movementData: IMovementRequest) => {
         setMessage(null);
         setIsLoading(true);
 
-        if (!movementData.unitPrice || !movementData.totalPrice) {
-            setMessage({ text: "Os campos de preço unitário e total são obrigatórios.", type: "error" });
-            setIsLoading(false);
-            return;
-        }
-
         try {
-            await api.post<{ movement: IMovement }>("/api/movement/createMovement", {
-                ...movementData,
-                product: movementData.product,
-                unitPrice: movementData.unitPrice,
-                totalPrice: movementData.totalPrice,
-            });
+            await api.post("/api/movement/createMovement", movementData);
 
             setMessage({ text: "Movimentação registrada com sucesso!", type: "success" });
         } catch (error: unknown) {
