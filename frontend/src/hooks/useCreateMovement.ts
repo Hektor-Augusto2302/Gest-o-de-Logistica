@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import api from "@/utils/api";
 import { AxiosError } from "axios";
-import { IMovementRequest } from "@/interfaces/IMovement";
+import { IMovement, IMovementRequest } from "@/interfaces/IMovement";
 
 export const useStockMovement = () => {
+    const [movements, setMovements] = useState<IMovement[]>([]);
     const [message, setMessage] = useState<{ text: string; type: "success" | "error" } | null>(null);
     const [isLoading, setIsLoading] = useState(false);
 
@@ -24,5 +25,23 @@ export const useStockMovement = () => {
         }
     };
 
-    return { createMovement, isLoading, message };
+    const getMovements = useCallback(async () => {
+        setIsLoading(true);
+        try {
+            const response = await api.get("/api/movement");
+            console.log("Movimentações recebidas:", response.data); // Debug
+            setMovements(response.data);
+        } catch (error: unknown) {
+            if (error instanceof AxiosError) {
+                const errorMessage = error.response?.data?.error || "Erro ao obter movimentações";
+                setMessage({ text: errorMessage, type: "error" });
+            } else {
+                setMessage({ text: "Erro desconhecido ao obter movimentações", type: "error" });
+            }
+        } finally {
+            setIsLoading(false);
+        }
+    }, []);
+
+    return { createMovement, getMovements, movements, isLoading, message };
 };
