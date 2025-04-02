@@ -38,6 +38,11 @@ export default function Sidebar({ isOpen, isMobile }: SidebarProps) {
                         {isOpen && <span className="text-sm mt-3">Estoque</span>}
                     </Link>
 
+                    <Link href="/movement" className="flex text-white flex-col items-center hover:text-gray-400 transition no-underline">
+                        <Image src={DashboardImage} width={24} height={24} alt="Dashboard" />
+                        {isOpen && <span className="text-sm mt-3">Entrada/Saida</span>}
+                    </Link>
+
                     {user?.role === "admin" && (
                         <Link href="/registerAdmin" className="flex text-white flex-col items-center hover:text-gray-400 transition no-underline">
                             <Image src={DashboardImage} width={24} height={24} alt="Registro de Admin" />
@@ -52,10 +57,12 @@ export default function Sidebar({ isOpen, isMobile }: SidebarProps) {
                         </Link>
                     )}
 
-                    <Link href="/movement" className="flex text-white flex-col items-center hover:text-gray-400 transition no-underline">
-                        <Image src={DashboardImage} width={24} height={24} alt="Dashboard" />
-                        {isOpen && <span className="text-sm mt-3">Entrada/Saida</span>}
-                    </Link>
+                    {user?.role === "admin" && (
+                        <Link href="/listMovements" className="flex text-white flex-col items-center hover:text-gray-400 transition no-underline">
+                            <Image src={DashboardImage} width={24} height={24} alt="Lista de Movimentações" />
+                            {isOpen && <span className="text-sm mt-3">Lista de Movimentações</span>}
+                        </Link>
+                    )}
                 </nav>
             </aside>
         </>

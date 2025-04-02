@@ -7,7 +7,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { IMovementRequest } from "@/interfaces/IMovement";
 
 export default function Movement() {
-    const { createMovement, getMovements, message, isLoading,  movements } = useStockMovement();
+    const { createMovement, getMovements, message, isLoading } = useStockMovement();
     const { user } = useAuth();
 
     const [product, setProduct] = useState("");
@@ -38,14 +38,6 @@ export default function Movement() {
 
     return (
         <div className="flex items-center justify-center min-h-screen w-full px-4 user-form">
-            <h2>Lista de Movimentações</h2>
-            <ul>
-                {movements.map((m) => (
-                    <li key={m._id}>
-                        Produto: {m.product.name} | Quantidade: {m.movementQuantity} | Tipo: {m.type}
-                    </li>
-                ))}
-            </ul>
             <Form
                 handleRegisterMovement={handleRegisterMovement}
                 product={product}
