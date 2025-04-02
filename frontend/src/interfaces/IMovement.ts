@@ -6,7 +6,7 @@ export interface IMovement {
     unitPrice: number;
     totalPrice: number;
     createdBy: { _id: string; name: string; email: string };
-    date: string; // Vamos exibir formatado no componente
+    date: string;
 }
 
 export interface IMovementRequest {
