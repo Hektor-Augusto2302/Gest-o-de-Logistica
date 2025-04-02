@@ -20,12 +20,21 @@ export default function ListMovement() {
 
             <div className="flex justify-between items-center mx-3 pb-3 border-b border-gray-300 max-sm:flex-col max-sm:items-start max-sm:gap-3">
                 <h1 className="text-blue-500 font-semibold">Movimentações</h1>
-                <button
-                    onClick={() => setIsModalOpen(true)}
-                    className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition duration-200"
-                >
-                    + Nova Movimentação
-                </button>
+                <div className="flex">
+                    <button
+                        onClick={() => setIsModalOpen(true)}
+                        className="bg-blue-500 mr-2 text-white text-center cursor-pointer
+                        border-none px-4 py-4 rounded-md hover:bg-blue-200 transition duration-200"
+                    >
+                        + Atualizar a Movimentação
+                    </button>
+                    <button
+                        className="bg-red-500 text-white text-center cursor-pointer
+                        border-none px-4 py-4 rounded-md hover:bg-red-200 transition duration-200"
+                    >
+                        + Excluir Movimentação
+                    </button>
+                </div>
             </div>
 
             <ListTable movements={movements} onProductSelect={setSelectedMovements} />
