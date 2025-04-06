@@ -4,6 +4,8 @@ import Link from "next/link";
 import DashboardImage from "../../../public/dashboard.svg";
 import Image from "next/image";
 import { useAuth } from "@/hooks/useAuth";
+import { useState } from "react";
+import ArrowDown from "../Navbar/components/ArrowDown";
 
 interface SidebarProps {
     isOpen: boolean;
@@ -12,13 +14,12 @@ interface SidebarProps {
 
 export default function Sidebar({ isOpen, isMobile }: SidebarProps) {
     const { user } = useAuth();
+    const [isAdminOpen, setIsAdminOpen] = useState(false);
 
     return (
         <>
             {isMobile && isOpen && (
-                <div 
-                    className="fixed inset-0 bg-black bg-opacity-50 z-40" 
-                />
+                <div className="fixed inset-0 bg-black bg-opacity-50 z-40" />
             )}
 
             <aside
@@ -39,29 +40,32 @@ export default function Sidebar({ isOpen, isMobile }: SidebarProps) {
                     </Link>
 
                     <Link href="/movement" className="flex text-white flex-col items-center hover:text-gray-400 transition no-underline">
-                        <Image src={DashboardImage} width={24} height={24} alt="Dashboard" />
-                        {isOpen && <span className="text-sm mt-3">Entrada/Saida</span>}
+                        <Image src={DashboardImage} width={24} height={24} alt="Entrada/Saída" />
+                        {isOpen && <span className="text-sm mt-3">Entrada/Saída</span>}
                     </Link>
 
                     {user?.role === "admin" && (
-                        <Link href="/registerAdmin" className="flex text-white flex-col items-center hover:text-gray-400 transition no-underline">
-                            <Image src={DashboardImage} width={24} height={24} alt="Registro de Admin" />
-                            {isOpen && <span className="text-sm mt-3">Registro de Admin</span>}
-                        </Link>
-                    )}
+                        <div className="flex flex-col">
+                            <button
+                                onClick={() => setIsAdminOpen(!isAdminOpen)}
+                                className="flex bg-transparent text-white border-none flex-col 
+                                items-center hover:text-gray-400 transition no-underline cursor-pointer"
+                            >
+                                <div className="flex ml-4">    
+                                    <Image src={DashboardImage} width={24} height={24} alt="Administração" />
+                                    <ArrowDown size={15} color="gray" className="cursor-pointer" />
+                                </div>
+                                {isOpen && <span className="text-sm mt-3">Paginas Administrativas</span>}
+                            </button>
 
-                    {user?.role === "admin" && (
-                        <Link href="/registerProduct" className="flex text-white flex-col items-center hover:text-gray-400 transition no-underline">
-                            <Image src={DashboardImage} width={24} height={24} alt="Registro de Produtos" />
-                            {isOpen && <span className="text-sm mt-3">Registro de Produtos</span>}
-                        </Link>
-                    )}
-
-                    {user?.role === "admin" && (
-                        <Link href="/listMovements" className="flex text-white flex-col items-center hover:text-gray-400 transition no-underline">
-                            <Image src={DashboardImage} width={24} height={24} alt="Lista de Movimentações" />
-                            {isOpen && <span className="text-sm mt-3">Lista de Movimentações</span>}
-                        </Link>
+                            {isAdminOpen && (
+                                <div className="flex flex-col space-y-2 mt-2 pl-4 border-gray-700 no-underline">
+                                    <Link href="/registerAdmin" className="text-white no-underline hover:text-gray-400 transition text-sm">Registro de Admin</Link>
+                                    <Link href="/registerProduct" className="text-white no-underline hover:text-gray-400 transition text-sm">Registro de Produtos</Link>
+                                    <Link href="/listMovements" className="text-white no-underline hover:text-gray-400 transition text-sm">Lista de Movimentações</Link>
+                                </div>
+                            )}
+                        </div>
                     )}
                 </nav>
             </aside>

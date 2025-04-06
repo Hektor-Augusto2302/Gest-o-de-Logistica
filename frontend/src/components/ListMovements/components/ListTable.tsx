@@ -33,7 +33,6 @@ export default function ListTable({ movements, onProductSelect }: ListTableProps
 
     return (
         <div className="overflow-x-auto">
-            {/* Tabela Desktop */}
             <table className="min-w-max w-full border-collapse hidden sm:table">
                 <thead>
                     <tr className="text-center border-collapse">
@@ -79,7 +78,6 @@ export default function ListTable({ movements, onProductSelect }: ListTableProps
                 </tbody>
             </table>
 
-            {/* Layout Mobile */}
             <div className="sm:hidden flex flex-col gap-4 mt-4">
                 {movements.map((m) => (
                     <div key={m._id} className="border p-3 rounded-md shadow-md">
