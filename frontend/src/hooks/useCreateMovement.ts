@@ -29,7 +29,6 @@ export const useStockMovement = () => {
         setIsLoading(true);
         try {
             const response = await api.get("/api/movement");
-            console.log("Movimentações recebidas:", response.data); // Debug
             setMovements(response.data);
         } catch (error: unknown) {
             if (error instanceof AxiosError) {
@@ -43,5 +42,5 @@ export const useStockMovement = () => {
         }
     }, []);
 
-    return { createMovement, getMovements, movements, isLoading, message };
+    return { createMovement, getMovements, setMovements, movements, isLoading, message };
 };
