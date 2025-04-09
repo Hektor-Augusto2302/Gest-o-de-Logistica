@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 import ListTable from "./components/ListTable";
 import ModalList from "./components/ModalList";
 import { useDeleteMovement } from "@/hooks/useDeleteMovement";
-import { handleDeleteSelected } from "./components/handleDeleteSelected";
 
 export default function ListMovement() {
     const { getMovements, movements, setMovements } = useStockMovement();
@@ -38,19 +37,14 @@ export default function ListMovement() {
                     >
                         + Atualizar a Movimentação
                     </button>
-                    <button
-                        onClick={() =>
-                            handleDeleteSelected(selectedMovements, deleteMovement, () => setSelectedMovements([]))
-                          }
-                        className="bg-red-500 text-white text-center cursor-pointer
-                        border-none px-4 py-4 rounded-md hover:bg-red-200 transition duration-200"
-                    >
-                        + Excluir Movimentação
-                    </button>
                 </div>
             </div>
 
-            <ListTable movements={movements} onProductSelect={setSelectedMovements} />
+            <ListTable
+                movements={movements}
+                onProductSelect={setSelectedMovements}
+                onDelete={deleteMovement}
+            />
 
             <ModalList
                 selectedMovements={selectedMovements} 

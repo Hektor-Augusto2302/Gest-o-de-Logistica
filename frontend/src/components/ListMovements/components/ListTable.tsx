@@ -2,13 +2,15 @@
 
 import { useState } from "react";
 import { IMovement } from "@/interfaces/IMovement";
+import { handleDeleteOne } from "./handleDeleteOne";
 
 interface ListTableProps {
     movements: IMovement[];
     onProductSelect: (selectedProducts: IMovement[]) => void;
+    onDelete: (id: string) => void;
 }
 
-export default function ListTable({ movements, onProductSelect }: ListTableProps) {
+export default function ListTable({ movements, onProductSelect, onDelete }: ListTableProps) {
     const [selectedProducts, setSelectedProducts] = useState<IMovement[]>([]);
 
     const toggleProductSelection = (movement: IMovement) => {
@@ -52,6 +54,7 @@ export default function ListTable({ movements, onProductSelect }: ListTableProps
                         <th className="px-4 py-2 border-table">Preço Total</th>
                         <th className="px-4 py-2 border-table">Criado por</th>
                         <th className="px-4 py-2 border-table">Data</th>
+                        <th className="px-4 py-2 border-table">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -73,6 +76,14 @@ export default function ListTable({ movements, onProductSelect }: ListTableProps
                             <td className="px-4 py-2 border-table">R$ {m.totalPrice.toFixed(2)}</td>
                             <td className="px-4 py-2 border-table">{m.createdBy.name}</td>
                             <td className="px-4 py-2 border-table">{new Date(m.date).toLocaleDateString()}</td>
+                            <td className="px-4 py-2 border-table">
+                                <button
+                                    className="bg-red-500 hover:bg-red-600 cursor-pointer text-white px-3 py-1 rounded"
+                                    onClick={() => handleDeleteOne(m._id, async (id) => onDelete(id))}
+                                >
+                                Excluir
+                                </button>
+                            </td>
                         </tr>
                     ))}
                 </tbody>
