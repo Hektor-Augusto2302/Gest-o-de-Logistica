@@ -53,15 +53,13 @@ export default function ProductForm() {
                 <h2 className="text-black text-center text-lg sm:text-xl font-semibold mb-4">
                     Cadastrar Produto
                 </h2>
-                {message && (
-                    <div
-                        className={`text-center p-2 mb-3 rounded ${
-                            message.type === "success" ? "bg-green-500 text-white" : "bg-red-500 text-white"
-                        }`}
-                    >
-                        {message.text}
+                {message && 
+                    <div className={message.type === "error" ? "bg-red-50" : "bg-green-50"}>
+                        <p className={`text-center ${message.type === "error" ? "text-red-500" : "text-green-500"}`}>
+                            {message.text}
+                        </p>
                     </div>
-                )}
+                }
                 <Form
                     handleRegisterProduct={handleRegisterProduct}
                     name={name}

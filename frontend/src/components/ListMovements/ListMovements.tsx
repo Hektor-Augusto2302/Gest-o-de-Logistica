@@ -23,11 +23,13 @@ export default function ListMovement() {
 
             <div className="flex justify-between items-center mx-3 pb-3 border-b border-gray-300 max-sm:flex-col max-sm:items-start max-sm:gap-3">
                 <h1 className="text-blue-500 font-semibold">Movimentações</h1>
-                {message && (
-                    <p className={`text-sm mt-2 ${message.type === "success" ? "text-green-500" : "text-red-500"}`}>
-                        {message.text}
-                    </p>
-                )}
+                {message && 
+                    <div className={message.type === "error" ? "bg-red-50" : "bg-green-50"}>
+                        <p className={`text-center ${message.type === "error" ? "text-red-500" : "text-green-500"}`}>
+                            {message.text}
+                        </p>
+                    </div>
+                }
                 <div className="flex">
                     <button
                         onClick={() => setIsModalOpen(true)}
