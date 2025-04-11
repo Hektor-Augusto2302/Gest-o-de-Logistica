@@ -5,14 +5,10 @@ import { useEffect, useState } from "react";
 import StockTable from "./components/StockTable/StockTable";
 import { useGetProducts } from "@/hooks/useGetProducts";
 import { getStockStatus } from "./utils/getStockStatus";
-import { IProduct } from "@/interfaces/IProduct";
-import ModalStock from "./components/ModalStock/ModalStock";
 
 export default function Stock() {
     const [status, setStatus] = useState("");
     const [searchTerm, setSearchTerm] = useState("");
-    const [selectedProducts, setSelectedProducts] = useState<IProduct[]>([]);
-    const [isModalOpen, setIsModalOpen] = useState(false);
     const { products, getProducts, isLoading, message } = useGetProducts();
 
     useEffect(() => {
@@ -31,22 +27,9 @@ export default function Stock() {
         return statusMatch && searchMatch;
     });
 
-    const toggleProductSelection = (updatedSelection: IProduct[]) => {
-        setSelectedProducts(updatedSelection);
-    };
-
     return (
         <div className="user-form">
-            <div className="flex justify-between items-center mx-3 pb-3 border-b border-gray-300 max-sm:flex-col max-sm:items-start max-sm:gap-3">
-                <h1 className="text-blue-500 font-semibold">Em Estoque</h1>
-                <button
-                    onClick={() => setIsModalOpen(true)}
-                    className="bg-blue-500 text-white text-center cursor-pointer
-                    border-none px-4 py-4 rounded-md hover:bg-blue-200 transition duration-200"
-                >
-                    + Novo Estoque
-                </button>
-            </div>
+            <h1 className="text-blue-500 font-semibold items-center">Em Estoque</h1>
 
             <hr className="my-5 border-gray-300" />
 
@@ -79,13 +62,7 @@ export default function Stock() {
             {isLoading && <p>Carregando produtos...</p>}
             {message && <p>{message.text}</p>}
 
-            <StockTable products={filteredProducts} onProductSelect={toggleProductSelection} />
-
-            <ModalStock 
-                selectedProducts={selectedProducts} 
-                isModalOpen={isModalOpen}
-                setIsModalOpen={setIsModalOpen} 
-            />
+            <StockTable products={filteredProducts} />
         </div>
     );
 }

@@ -5,10 +5,9 @@ import { IProduct } from "@/interfaces/IProduct";
 
 interface StockTableProps {
     products: IProduct[];
-    onProductSelect: (selectedProducts: IProduct[]) => void;
 }
 
-export default function StockTable({ products, onProductSelect }: StockTableProps) {
+export default function StockTable({ products }: StockTableProps) {
     const [selectedProducts, setSelectedProducts] = useState<IProduct[]>([]);
 
     const toggleProductSelection = (product: IProduct) => {
@@ -22,13 +21,6 @@ export default function StockTable({ products, onProductSelect }: StockTableProp
         }
 
         setSelectedProducts(updatedSelection);
-        onProductSelect(updatedSelection);
-    };
-
-    const toggleAllSelection = () => {
-        const newSelection = selectedProducts.length === products.length ? [] : [...products];
-        setSelectedProducts(newSelection);
-        onProductSelect(newSelection);
     };
 
     return (
@@ -36,14 +28,6 @@ export default function StockTable({ products, onProductSelect }: StockTableProp
             <table className="min-w-max w-full border-collapse hidden sm:table">
                 <thead>
                     <tr className="text-center border-collapse">
-                        <th className="px-4 py-2 border-table">
-                            <input
-                                type="checkbox"
-                                className="w-5 h-5"
-                                checked={selectedProducts.length === products.length && products.length > 0}
-                                onChange={toggleAllSelection}
-                            />
-                        </th>
                         <th className="px-4 py-2 border-table">Código</th>
                         <th className="px-4 py-2 border-table">Nome</th>
                         <th className="px-4 py-2 border-table">Categoria</th>
@@ -75,14 +59,6 @@ export default function StockTable({ products, onProductSelect }: StockTableProp
 
                         return (
                             <tr key={product._id} className="text-center border-b">
-                                <td className="px-4 py-2 border-table">
-                                    <input
-                                        type="checkbox"
-                                        className="w-5 h-5 border-table"
-                                        checked={selectedProducts.some((p) => p._id === product._id)}
-                                        onChange={() => toggleProductSelection(product)}
-                                    />
-                                </td>
                                 <td className="px-4 py-2 border-table">{product.code || "N/A"}</td>
                                 <td className="px-4 py-2 border-table">{product.name}</td>
                                 <td className="px-4 py-2 border-table">{product.category || "N/A"}</td>
