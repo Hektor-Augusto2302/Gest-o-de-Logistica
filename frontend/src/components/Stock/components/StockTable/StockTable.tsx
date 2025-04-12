@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { IProduct } from "@/interfaces/IProduct";
+import { useAuth } from "@/hooks/useAuth";
 
 interface StockTableProps {
     products: IProduct[];
@@ -9,6 +10,9 @@ interface StockTableProps {
 
 export default function StockTable({ products }: StockTableProps) {
     const [selectedProducts, setSelectedProducts] = useState<IProduct[]>([]);
+    const { user } = useAuth();
+
+    const isAdmin = user?.role === "admin";
 
     const toggleProductSelection = (product: IProduct) => {
         const isSelected = selectedProducts.some((p) => p._id === product._id);
@@ -23,8 +27,17 @@ export default function StockTable({ products }: StockTableProps) {
         setSelectedProducts(updatedSelection);
     };
 
+    const handleUpdateProduct = (product: IProduct) => {
+        console.log("Atualizar produto", product);
+    }
+
+    const handleDeleteProduct = (product: IProduct) => {
+        console.log("Excluir produto", product);
+    }
+
     return (
         <div className="overflow-x-auto">
+
             <table className="min-w-max w-full border-collapse hidden sm:table">
                 <thead>
                     <tr className="text-center border-collapse">
@@ -34,6 +47,7 @@ export default function StockTable({ products }: StockTableProps) {
                         <th className="px-4 py-2 border-table">Quantidade</th>
                         <th className="px-4 py-2 border-table">Estoque/Mínimo</th>
                         <th className="px-4 py-2 border-table">Status</th>
+                        {isAdmin && <th className="px-4 py-2 border-table">Ação</th>}
                     </tr>
                 </thead>
                 <tbody>
@@ -67,6 +81,24 @@ export default function StockTable({ products }: StockTableProps) {
                                 <td className={`px-4 py-2 w-40 font-semibold border-table rounded-full ${statusColor}`}>
                                     {statusText}
                                 </td>
+                                {isAdmin && (
+                                    <td className="px-4 py-2 border-table">
+                                        <div className="flex justify-center gap-2">
+                                            <button
+                                                onClick={() => handleUpdateProduct(product)}
+                                                className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 text-sm font-semibold rounded-full cursor-pointer"
+                                            >
+                                                Atualizar
+                                            </button>
+                                            <button
+                                                onClick={() => handleDeleteProduct(product)}
+                                                className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 text-sm font-semibold rounded-full cursor-pointer"
+                                            >
+                                                Excluir
+                                            </button>
+                                        </div>
+                                  </td>
+                                )}
                             </tr>
                         );
                     })}
