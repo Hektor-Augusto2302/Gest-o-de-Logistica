@@ -7,9 +7,10 @@ import ModalStockActions from "../ModalStockActions/ModalStockActions";
 
 interface StockTableProps {
   products: IProduct[];
+  onProductUpdated: () => void;
 }
 
-export default function StockTable({ products }: StockTableProps) {
+export default function StockTable({ products, onProductUpdated }: StockTableProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [productToUpdate, setProductToUpdate] = useState<IProduct | null>(null);
 
@@ -27,13 +28,12 @@ export default function StockTable({ products }: StockTableProps) {
     console.log("Excluir produto", product);
   };
 
-  const handleSaveUpdatedProduct = (updatedProduct: IProduct) => {
-    console.log("Salvar produto atualizado", updatedProduct);
+  const handleSaveUpdatedProduct = async() => {
+    await onProductUpdated();
   };
 
   return (
     <div className="overflow-x-auto">
-
       <table className="min-w-max w-full border-collapse hidden sm:table">
         <thead>
           <tr className="text-center border-collapse">
@@ -70,9 +70,13 @@ export default function StockTable({ products }: StockTableProps) {
 
             return (
               <tr key={product._id} className="text-center border-b">
-                <td className="px-4 py-2 border-table">{product.code || "N/A"}</td>
+                <td className="px-4 py-2 border-table">
+                  {product.code || "N/A"}
+                </td>
                 <td className="px-4 py-2 border-table">{product.name}</td>
-                <td className="px-4 py-2 border-table">{product.category || "N/A"}</td>
+                <td className="px-4 py-2 border-table">
+                  {product.category || "N/A"}
+                </td>
                 <td className="px-4 py-2 border-table">{quantity}</td>
                 <td className="px-4 py-2 border-table">{minStock}</td>
                 <td

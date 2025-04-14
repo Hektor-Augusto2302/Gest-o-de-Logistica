@@ -62,7 +62,7 @@ export default function Stock() {
             {isLoading && <p>Carregando produtos...</p>}
             {message && <p>{message.text}</p>}
 
-            <StockTable products={filteredProducts} />
+            <StockTable products={filteredProducts} onProductUpdated={getProducts} />
         </div>
     );
 }

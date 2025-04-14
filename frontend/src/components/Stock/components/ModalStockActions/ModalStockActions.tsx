@@ -2,11 +2,12 @@
 
 import { IProduct } from "@/interfaces/IProduct";
 import { useState } from "react";
+import { useUpdateProduct } from "@/hooks/useUpdateProduct";
 
 interface ModalStockActionsProps {
   product: IProduct;
   onClose: () => void;
-  onSave: (updatedProduct: IProduct) => void;
+  onSave: () => void;
 }
 
 export default function ModalStockActions({
@@ -15,22 +16,25 @@ export default function ModalStockActions({
   onSave,
 }: ModalStockActionsProps) {
   const [name, setName] = useState(product.name || "");
-  const [code, setCode] = useState(product.code || "");
-  const [category, setCategory] = useState(product.category || "");
-  const [quantity, setQuantity] = useState(product.quantity ?? 0);
   const [minStock, setMinStock] = useState(product.minStock ?? 0);
+  const [description, setDescription] = useState(product.description || "");
 
-  const handleSubmit = () => {
-    const updatedProduct: IProduct = {
-      ...product,
-      name,
-      code,
-      category,
-      quantity,
-      minStock,
-    };
-    onSave(updatedProduct);
-    onClose();
+  const { updateProduct, loading, error } = useUpdateProduct();
+
+  const handleSubmit = async () => {
+    try {
+      const dataToUpdate = {
+        name,
+        description,
+        minStock,
+      };
+  
+      await updateProduct(product._id, dataToUpdate);
+      onSave();
+      onClose();
+    } catch (err) {
+      console.error("Erro ao atualizar:", err);
+    }
   };
 
   return (
@@ -39,55 +43,47 @@ export default function ModalStockActions({
         <h2 className="text-xl font-bold mb-4">Atualizar Produto</h2>
 
         <div className="flex flex-col gap-3">
-            <input
-                className="p-2 rounded border border-zinc-400"
-                placeholder="Nome"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-            />
-            <input
-                className="p-2 rounded border border-zinc-400"
-                placeholder="Código"
-                value={code}
-                onChange={(e) => setCode(e.target.value)}
-            />
-            <input
-                className="p-2 rounded border border-zinc-400"
-                placeholder="Categoria"
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
-            />
-            <input
-                className="p-2 rounded border border-zinc-400"
-                type="number"
-                placeholder="Quantidade"
-                value={quantity}
-                onChange={(e) => setQuantity(Number(e.target.value))}
-            />
-            <input
-                className="p-2 rounded border border-zinc-400"
-                type="number"
-                placeholder="Estoque mínimo"
-                value={minStock}
-                onChange={(e) => setMinStock(Number(e.target.value))}
-            />
+          <input
+            className="p-2 rounded border border-zinc-400"
+            placeholder="Nome"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+          <input
+            className="p-2 rounded border border-zinc-400"
+            placeholder="Descrição"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          />
+          <input
+            className="p-2 rounded border border-zinc-400"
+            type="number"
+            placeholder="Estoque mínimo"
+            value={minStock}
+            onChange={(e) => setMinStock(Number(e.target.value))}
+          />
         </div>
 
-            <div className="flex justify-end gap-2 mt-6">
-                <button
-                    onClick={onClose}
-                    className="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded cursor-pointer"
-                >
-                    Cancelar
-                </button>
-                <button
-                    onClick={handleSubmit}
-                    className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded cursor-pointer"
-                >
-                    Salvar
-                </button>
-            </div>
+        {error && (
+          <p className="text-red-600 mt-2 text-sm">{error}</p>
+        )}
+
+        <div className="flex justify-end gap-2 mt-6">
+          <button
+            onClick={onClose}
+            className="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded cursor-pointer"
+          >
+            Cancelar
+          </button>
+          <button
+            onClick={handleSubmit}
+            disabled={loading}
+            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded cursor-pointer disabled:opacity-50"
+          >
+            {loading ? "Salvando..." : "Salvar"}
+          </button>
         </div>
+      </div>
     </div>
   );
 }
