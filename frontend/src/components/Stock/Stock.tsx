@@ -5,23 +5,30 @@ import { useEffect, useState } from "react";
 import StockTable from "./components/StockTable/StockTable";
 import { useGetProducts } from "@/hooks/useGetProducts";
 import { getStockStatus } from "./utils/getStockStatus";
+import { useDeleteProduct } from "@/hooks/useDeleteProduct";
 
 export default function Stock() {
     const [status, setStatus] = useState("");
     const [searchTerm, setSearchTerm] = useState("");
-    const { products, getProducts, isLoading, message } = useGetProducts();
+    const { products, getProducts, isLoading } = useGetProducts();
+    const [productList, setProductList] = useState(products);
+    const { deleteProduct, message } = useDeleteProduct(setProductList);
 
     useEffect(() => {
         getProducts();
     }, [getProducts]);
 
-    const filteredProducts = products?.filter((product) => {
+    useEffect(() => {
+        setProductList(products);
+    }, [products]);
+
+    const filteredProducts = productList?.filter((product) => {
         const stockStatus = getStockStatus(product.quantity ?? 0, product.minStock ?? 0);
-        
+
         const statusMatch = status === "" || stockStatus === status;
 
-        const searchMatch = searchTerm === "" || 
-            product.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
+        const searchMatch = searchTerm === "" ||
+            product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
             product.code?.toLowerCase().includes(searchTerm.toLowerCase());
 
         return statusMatch && searchMatch;
@@ -30,6 +37,14 @@ export default function Stock() {
     return (
         <div className="user-form">
             <h1 className="text-blue-500 font-semibold items-center">Em Estoque</h1>
+
+            {message && (
+                <div className={message.type === "error" ? "bg-red-50" : "bg-green-50"}>
+                    <p className={`text-center ${message.type === "error" ? "text-red-500" : "text-green-500"}`}>
+                        {message.text}
+                    </p>
+                </div>
+            )}
 
             <hr className="my-5 border-gray-300" />
 
@@ -60,9 +75,8 @@ export default function Stock() {
             <hr className="my-5 border-gray-300" />
 
             {isLoading && <p>Carregando produtos...</p>}
-            {message && <p>{message.text}</p>}
 
-            <StockTable products={filteredProducts} onProductUpdated={getProducts} />
+            <StockTable products={filteredProducts} onDelete={deleteProduct} onProductUpdated={getProducts} />
         </div>
     );
 }
