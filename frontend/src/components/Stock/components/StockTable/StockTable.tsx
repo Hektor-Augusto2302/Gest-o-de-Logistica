@@ -9,17 +9,17 @@ import { handleDeleteProducts } from "../handleDeleteProducts/handleDeleteProduc
 interface StockTableProps {
   products: IProduct[];
   onProductUpdated: () => void;
-  onDelete: (id: string) => void
+  onDelete: (id: string) => void;
 }
 
 export default function StockTable({
   products,
   onProductUpdated,
-  onDelete
+  onDelete,
 }: StockTableProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [productToUpdate, setProductToUpdate] = useState<IProduct | null>(null);
-  
+
   const { user } = useAuth();
   const isAdmin = user?.role === "admin";
 
@@ -95,7 +95,11 @@ export default function StockTable({
                         Atualizar
                       </button>
                       <button
-                        onClick={() => handleDeleteProducts(product._id, async (id) => onDelete(id))}
+                        onClick={() =>
+                          handleDeleteProducts(product._id, async (id) =>
+                            onDelete(id)
+                          )
+                        }
                         className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 text-sm font-semibold rounded-full cursor-pointer"
                       >
                         Excluir
@@ -134,22 +138,6 @@ export default function StockTable({
             <div key={product._id} className="border p-3 rounded-md shadow-md">
               <div className="flex justify-between items-center">
                 <h3 className="text-lg font-semibold">{product.name}</h3>
-                {isAdmin && (
-                  <div className="flex gap-2 mt-2">
-                    <button
-                      onClick={() => handleUpdateProduct(product)}
-                      className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 text-sm font-semibold rounded-full cursor-pointer"
-                    >
-                      Atualizar
-                    </button>
-                    <button
-                      onClick={() => handleDeleteProducts(product._id, async (id) => onDelete(id))}
-                      className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 text-sm font-semibold rounded-full cursor-pointer"
-                    >
-                      Excluir
-                    </button>
-                  </div>
-                )}
               </div>
               <p className="text-sm text-gray-500">
                 Código: {product.code || "N/A"}
@@ -166,6 +154,26 @@ export default function StockTable({
               >
                 {statusText}
               </p>
+              {isAdmin && (
+                <div className="flex justify-end gap-2 mt-3">
+                  <button
+                    onClick={() => handleUpdateProduct(product)}
+                    className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 text-sm font-semibold rounded-full cursor-pointer"
+                  >
+                    Atualizar
+                  </button>
+                  <button
+                    onClick={() =>
+                      handleDeleteProducts(product._id, async (id) =>
+                        onDelete(id)
+                      )
+                    }
+                    className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 text-sm font-semibold rounded-full cursor-pointer"
+                  >
+                    Excluir
+                  </button>
+                </div>
+              )}
             </div>
           );
         })}

@@ -6,13 +6,14 @@ import { handleDeleteOne } from "../handleDeleteOne/handleDeleteOne";
 interface ListTableProps {
   movements: IMovement[];
   onDelete: (id: string) => void;
+  onUpdate: (movement: IMovement) => void;
 }
 
 export default function ListTable({
   movements,
   onDelete,
+  onUpdate,
 }: ListTableProps) {
-
   return (
     <div className="overflow-x-auto">
       <table className="min-w-max w-full border-collapse hidden sm:table">
@@ -52,7 +53,13 @@ export default function ListTable({
                 <td className="px-4 py-2 border-table">
                   {new Date(m.date).toLocaleDateString()}
                 </td>
-                <td className="px-4 py-2 border-table">
+                <td className="px-4 py-2 flex gap-2 border-table">
+                  <button
+                    className="bg-blue-500 text-white px-2 py-1 rounded cursor-pointer"
+                    onClick={() => onUpdate(m)}
+                  >
+                    Atualizar
+                  </button>
                   <button
                     className="bg-red-500 hover:bg-red-600 cursor-pointer text-white px-3 py-1 rounded"
                     onClick={() =>
@@ -96,6 +103,23 @@ export default function ListTable({
               <p className="text-sm text-gray-500">
                 Data: {new Date(m.date).toLocaleDateString()}
               </p>
+
+              <div className="flex justify-end gap-2 mt-3">
+                <button
+                  className="bg-blue-500 text-white px-3 py-1 rounded text-sm cursor-pointer"
+                  onClick={() => onUpdate(m)}
+                >
+                  Atualizar
+                </button>
+                <button
+                  className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-sm cursor-pointer"
+                  onClick={() =>
+                    handleDeleteOne(m._id, async (id) => onDelete(id))
+                  }
+                >
+                  Excluir
+                </button>
+              </div>
             </div>
           ))}
       </div>
