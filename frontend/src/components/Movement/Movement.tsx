@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Form from "./components/Form";
+import Form from "./components/Form/Form";
 import { useStockMovement } from "@/hooks/useCreateMovement";
 import { useAuth } from "@/hooks/useAuth";
 import { IMovementRequest } from "@/interfaces/IMovement";

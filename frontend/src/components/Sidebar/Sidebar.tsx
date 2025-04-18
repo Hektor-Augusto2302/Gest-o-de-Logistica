@@ -5,7 +5,7 @@ import DashboardImage from "../../../public/dashboard.svg";
 import Image from "next/image";
 import { useAuth } from "@/hooks/useAuth";
 import { useState } from "react";
-import ArrowDown from "../Navbar/components/ArrowDown";
+import ArrowDown from "../Navbar/components/ArrowDown/ArrowDown";
 
 interface SidebarProps {
     isOpen: boolean;

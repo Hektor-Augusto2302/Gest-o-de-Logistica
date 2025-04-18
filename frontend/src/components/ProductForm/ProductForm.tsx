@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Form from "./components/Form";
+import Form from "./components/Form/Form";
 import { useRegisterProduct } from "@/hooks/useRegisterProduct";
 import { useAuth } from "@/hooks/useAuth";
 import { INewProduct } from "@/interfaces/INewProduct";

@@ -7,7 +7,7 @@ import Image from "next/image";
 import { useAuth } from "@/hooks/useAuth";
 import Link from "next/link";
 import { uploads } from "@/utils/upload";
-import ArrowDown from "./components/ArrowDown";
+import ArrowDown from "./components/ArrowDown/ArrowDown";
 
 interface NavbarProps {
     toggleSidebar: () => void;
