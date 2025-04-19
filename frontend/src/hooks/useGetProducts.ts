@@ -1,4 +1,4 @@
-import { IProduct } from "@/interfaces/IProduct";
+import { IProduct } from "@/types/IProduct";
 import api from "@/utils/api";
 import { AxiosError } from "axios";
 import { useState, useCallback } from "react";

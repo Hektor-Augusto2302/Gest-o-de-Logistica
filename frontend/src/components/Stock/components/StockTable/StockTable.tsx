@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { IProduct } from "@/interfaces/IProduct";
+import { IProduct } from "@/types/IProduct";
 import { useAuth } from "@/hooks/useAuth";
 import ModalStockActions from "../ModalStockActions/ModalStockActions";
 import { handleDeleteProducts } from "../handleDeleteProducts/handleDeleteProducts";

@@ -1,4 +1,4 @@
-import { User } from "@/interfaces/IUser";
+import { User } from "@/types/IUser";
 import api from "@/utils/api";
 import { AxiosError } from "axios";
 import { useState } from "react";

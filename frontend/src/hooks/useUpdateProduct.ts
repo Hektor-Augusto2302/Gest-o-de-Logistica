@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { AxiosError } from "axios";
-import { IProduct } from "@/interfaces/IProduct";
+import { IProduct } from "@/types/IProduct";
 import api from "@/utils/api";
 
 export function useUpdateProduct() {

@@ -1,7 +1,7 @@
 import { useCallback, useState } from "react";
 import api from "@/utils/api";
 import { AxiosError } from "axios";
-import { IMovement, IMovementRequest } from "@/interfaces/IMovement";
+import { IMovement, IMovementRequest } from "@/types/IMovement";
 
 export const useStockMovement = () => {
     const [movements, setMovements] = useState<IMovement[]>([]);

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { AxiosError } from "axios";
 import api from "@/utils/api";
-import { IMovement } from "@/interfaces/IMovement";
+import { IMovement } from "@/types/IMovement";
 
 export function useUpdateMovement() {
   const [loading, setLoading] = useState(false);

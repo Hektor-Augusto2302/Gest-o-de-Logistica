@@ -1,6 +1,6 @@
 "use client";
 
-import { loginData, RegisterData, User } from "@/interfaces/IUser";
+import { loginData, RegisterData, User } from "@/types/IUser";
 import api from "@/utils/api";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";

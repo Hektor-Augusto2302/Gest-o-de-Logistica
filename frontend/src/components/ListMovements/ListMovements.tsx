@@ -1,7 +1,7 @@
 "use client";
 
 import { useStockMovement } from "@/hooks/useCreateMovement";
-import { IMovement } from "@/interfaces/IMovement";
+import { IMovement } from "@/types/IMovement";
 import { useEffect, useState } from "react";
 import ListTable from "./components/ListTable/ListTable";
 import UpdateMovementModal from "./components/UpdateMovementModal/UpdateMovementModal";

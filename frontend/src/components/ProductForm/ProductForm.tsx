@@ -4,7 +4,7 @@ import { useState } from "react";
 import Form from "./components/Form/Form";
 import { useRegisterProduct } from "@/hooks/useRegisterProduct";
 import { useAuth } from "@/hooks/useAuth";
-import { INewProduct } from "@/interfaces/INewProduct";
+import { INewProduct } from "@/types/INewProduct";
 
 export default function ProductForm() {
 

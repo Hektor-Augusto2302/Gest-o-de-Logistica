@@ -1,11 +1,11 @@
 "use client";
 
-import { IProduct } from "@/interfaces/IProduct";
+import { IProduct } from "@/types/IProduct";
 import api from "@/utils/api";
 import { useState } from "react";
 import { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
-import { INewProduct } from "@/interfaces/INewProduct";
+import { INewProduct } from "@/types/INewProduct";
 
 export const useRegisterProduct = () => {
     const [message, setMessage] = useState<{ text: string; type: "success" | "error" } | null>(null);

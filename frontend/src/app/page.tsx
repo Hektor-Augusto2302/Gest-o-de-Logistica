@@ -5,8 +5,8 @@ import PublicRoute from "@/components/auth/PublicRoute";
 import { useAuth } from "@/hooks/useAuth";
 import { useGetProducts } from "@/hooks/useGetProducts";
 import { useStockMovement } from "@/hooks/useCreateMovement";
-import { IMovement } from "@/interfaces/IMovement";
-import { IProduct } from "@/interfaces/IProduct";
+import { IMovement } from "@/types/IMovement";
+import { IProduct } from "@/types/IProduct";
 import DashboardCards from "@/components/DashboardCards/DashboardCards";
 import LowStockPanel from "@/components/LowStockPanel/LowStockPanel";
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { IMovement } from "@/interfaces/IMovement";
+import { IMovement } from "@/types/IMovement";
 import { handleDeleteOne } from "../handleDeleteOne/handleDeleteOne";
 
 interface ListTableProps {

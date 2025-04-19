@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { IMovement } from "@/interfaces/IMovement";
+import { IMovement } from "@/types/IMovement";
 import { useUpdateMovement } from "@/hooks/useUpdateMovement";
 import { Dispatch, SetStateAction } from "react";
 

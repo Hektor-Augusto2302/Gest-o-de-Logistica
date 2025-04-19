@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { AxiosError } from "axios";
 import api from "@/utils/api";
-import { IProduct } from "@/interfaces/IProduct";
+import { IProduct } from "@/types/IProduct";
 
 export const useDeleteProduct = (setProducts: React.Dispatch<React.SetStateAction<IProduct[]>>) => {
   const [isLoading, setIsLoading] = useState(false);

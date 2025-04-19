@@ -1,6 +1,6 @@
 "use client";
 
-import { IProduct } from "@/interfaces/IProduct";
+import { IProduct } from "@/types/IProduct";
 import { useState } from "react";
 import { useUpdateProduct } from "@/hooks/useUpdateProduct";
 
