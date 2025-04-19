@@ -5,15 +5,15 @@ import Image from "next/image";
 import Money from "../../../public/money.svg";
 
 interface DashboardCardsProps {
-  totalVendidos: number;
-  totalEstoque: number;
-  valorTotalEstoque: number;
+  totalSold: number;
+  totalStock: number;
+  totalStockValue: number;
 }
 
 export default function DashboardCards({
-  totalVendidos,
-  totalEstoque,
-  valorTotalEstoque,
+  totalSold,
+  totalStock,
+  totalStockValue,
 }: DashboardCardsProps) {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6">
@@ -25,7 +25,7 @@ export default function DashboardCards({
           <Image src={Money} alt="Ilustração de dinheiro" />
           <p className="text-2xl font-bold text-blue-500">
             +{" "}
-            {totalVendidos.toLocaleString("pt-BR", {
+            {totalSold.toLocaleString("pt-BR", {
               minimumFractionDigits: 0,
               maximumFractionDigits: 0,
             })}
@@ -41,7 +41,7 @@ export default function DashboardCards({
           <Image src={Money} alt="Ilustração de dinheiro" />
           <p className="text-2xl font-bold text-green-500">
             +{" "}
-            {totalEstoque.toLocaleString("pt-BR", {
+            {totalStock.toLocaleString("pt-BR", {
               minimumFractionDigits: 0,
               maximumFractionDigits: 0,
             })}
@@ -57,7 +57,7 @@ export default function DashboardCards({
           <Image src={Money} alt="Ilustração de dinheiro" />
           <p className="text-2xl font-bold text-yellow-500">
             R${" "}
-            {valorTotalEstoque.toLocaleString("pt-BR", {
+            {totalStockValue.toLocaleString("pt-BR", {
               minimumFractionDigits: 2,
               maximumFractionDigits: 2,
             })}

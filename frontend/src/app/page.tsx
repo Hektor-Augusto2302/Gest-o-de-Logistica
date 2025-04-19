@@ -8,6 +8,7 @@ import { useStockMovement } from "@/hooks/useCreateMovement";
 import { IMovement } from "@/interfaces/IMovement";
 import { IProduct } from "@/interfaces/IProduct";
 import DashboardCards from "@/components/DashboardCards/DashboardCards";
+import LowStockPanel from "@/components/LowStockPanel/LowStockPanel";
 
 export default function Home() {
   const { user } = useAuth();
@@ -25,15 +26,19 @@ export default function Home() {
     fetchAll();
   }, [getProducts, getMovements]);
 
-  const totalVendidos = movements
+  const totalSold = movements
     .filter((m: IMovement) => m.type === "saida")
     .reduce((acc: number, m: IMovement) => acc + m.movementQuantity, 0);
 
-  const totalEstoque = products.reduce((acc, p) => acc + p.quantity, 0);
+  const totalStock = products.reduce((acc, p) => acc + p.quantity, 0);
 
-  const valorTotalEstoque = products.reduce(
+  const totalStockValue = products.reduce(
     (acc: number, p: IProduct) => acc + p.quantity * p.costPrice,
     0
+  );
+
+  const lowStockProducts = products.filter(
+    (p: IProduct) => p.quantity < (p.minStock ?? 0)
   );
 
   return (
@@ -47,11 +52,13 @@ export default function Home() {
           <p className="text-center">Carregando dados...</p>
         ) : (
           <DashboardCards
-            totalVendidos={totalVendidos}
-            totalEstoque={totalEstoque}
-            valorTotalEstoque={valorTotalEstoque}
+            totalSold={totalSold}
+            totalStock={totalStock}
+            totalStockValue={totalStockValue}
           />
         )}
+
+        <LowStockPanel products={lowStockProducts} />
       </div>
     </PublicRoute>
   );
