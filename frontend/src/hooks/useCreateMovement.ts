@@ -1,5 +1,6 @@
 import { useCallback, useState } from "react";
 import api from "@/utils/api";
+import { useRouter } from "next/navigation";
 import { AxiosError } from "axios";
 import { IMovement, IMovementRequest } from "@/types/IMovement";
 
@@ -7,6 +8,8 @@ export const useStockMovement = () => {
     const [movements, setMovements] = useState<IMovement[]>([]);
     const [message, setMessage] = useState<{ text: string; type: "success" | "error" } | null>(null);
     const [isLoading, setIsLoading] = useState(false);
+
+    const router = useRouter();
 
     const createMovement = async (movementData: IMovementRequest) => {
         setMessage(null);
@@ -16,6 +19,10 @@ export const useStockMovement = () => {
             await api.post("/api/movement/createMovement", movementData);
 
             setMessage({ text: "Movimentação registrada com sucesso!", type: "success" });
+
+            setTimeout(() => {
+                router.push("/stock");
+            }, 3000);
         } catch (error: unknown) {
             if (error instanceof AxiosError) {
                 setMessage({ text: error.response?.data?.error || "Erro ao registrar movimentação", type: "error" });

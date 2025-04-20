@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
 
 export default function RegisterFormAdmin() {
-    const { register } = useAuth();
+    const { registerAdmin } = useAuth();
 
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -24,7 +24,7 @@ export default function RegisterFormAdmin() {
             confirmPassword,
         };
 
-        await register(user);
+        await registerAdmin(user);
 
         setTimeout(() => {
             setIsSubmitting(false);
