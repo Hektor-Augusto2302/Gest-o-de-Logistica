@@ -25,6 +25,16 @@ body {
     border-color: #2563eb;
 }
 
+.select-form {
+    height: 50px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    background-color: #f3f4f6;
+    font-size: 16px;
+    outline: none;
+    transition: border 0.3s ease-in-out;
+}
+
 .button-form {
     height: 50px;
     background-color: #1a2266;
