@@ -37,7 +37,7 @@ export default function Layout({ children }: LayoutProps) {
                 {!hideLayout && <Sidebar isOpen={isSidebarOpen} isMobile={isMobile} />}
 
                 <main
-                    className={`flex-1 overflow-auto ${
+                    className={`flex-1 ${
                         hideLayout ? "" : `pt-10 px-10 mt-10 ${isMobile ? "pl-24" : isSidebarOpen ? "ml-40" : "ml-16"}`
                     }`}
                 >

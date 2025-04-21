@@ -2,9 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+html,
 body {
-    background-color: #EDF0F2;
     margin: 0;
+    padding: 0;
+    overflow: hidden;
+    height: 100%;
 }
 
 .user-form {
