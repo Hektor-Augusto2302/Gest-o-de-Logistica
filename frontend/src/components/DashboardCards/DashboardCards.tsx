@@ -17,7 +17,7 @@ export default function DashboardCards({
 }: DashboardCardsProps) {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-6 w-full">
-      <div className="bg-white rounded-lg shadow p-4 w-full sm:max-w-xs max-w-[15rem]">
+      <div className="bg-white rounded-lg shadow p-4 w-full sm:max-w-xs max-w-[12rem]">
         <h2 className="text-black-600 dark:text-black-300 text-sm text-center">
           Produtos Vendidos
         </h2>
@@ -30,7 +30,7 @@ export default function DashboardCards({
         </div>
       </div>
 
-      <div className="bg-white rounded-lg shadow p-4 w-full sm:max-w-xs max-w-[15rem]">
+      <div className="bg-white rounded-lg shadow p-4 w-full sm:max-w-xs max-w-[12rem]">
         <h2 className="text-black-600 dark:text-black-300 text-sm text-center">
           Em Estoque (Qtde)
         </h2>
@@ -43,7 +43,7 @@ export default function DashboardCards({
         </div>
       </div>
 
-      <div className="bg-white rounded-lg shadow p-4 w-full sm:max-w-xs max-w-[15rem]">
+      <div className="bg-white rounded-lg shadow p-4 w-full sm:max-w-xs max-w-[12rem]">
         <h2 className="text-black-600 dark:text-black-300 text-sm text-center">
           Valor Total do Estoque
         </h2>

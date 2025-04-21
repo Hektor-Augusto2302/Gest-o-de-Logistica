@@ -6,8 +6,10 @@ html,
 body {
     margin: 0;
     padding: 0;
-    overflow: hidden;
-    height: 100%;
+}
+
+aside {
+    height: 100% !important;
 }
 
 .user-form {
