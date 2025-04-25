@@ -14,10 +14,6 @@ const inventorySchema = new Schema<IInventory>(
           type: Number,
           required: true,
         },
-        codeOrName: {
-          type: String,
-          required: true,
-        },
       },
     ],
     performedBy: {

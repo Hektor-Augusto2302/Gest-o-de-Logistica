@@ -1,6 +1,6 @@
 export interface CreateInventoryBody {
     products: {
-      codeOrName: string;
+      productId: string;
       countedQuantity: number;
     }[];
   }
