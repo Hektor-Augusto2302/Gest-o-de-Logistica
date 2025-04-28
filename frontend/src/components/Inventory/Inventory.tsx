@@ -1,11 +1,17 @@
 "use client";
 
 import { Search } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useGetProducts } from "@/hooks/useGetProducts";
 import InventoryTable from "./components/InventoryTable/InventoryTable";
 
 export default function Inventory() {
+  const { products, getProducts, isLoading, message } = useGetProducts();
   const [searchTerm, setSearchTerm] = useState("");
+
+  useEffect(() => {
+    getProducts();
+  }, [getProducts]);
 
   return (
     <div className="user-form">
@@ -30,7 +36,14 @@ export default function Inventory() {
           <Search className="absolute left-3 top-2.5 text-gray-500 w-5 h-5" />
         </div>
       </div>
-      <InventoryTable />
+
+      <InventoryTable 
+        products={products}
+        isLoading={isLoading}
+        message={message}
+        searchTerm={searchTerm}
+      />
+
       <hr className="my-5 border-gray-300" />
     </div>
   );
