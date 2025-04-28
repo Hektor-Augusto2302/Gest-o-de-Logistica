@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { IProduct } from "@/types/IProduct";
 
 interface InventoryTableProps {
@@ -8,22 +7,23 @@ interface InventoryTableProps {
   isLoading: boolean;
   message: { text: string; type: "success" | "error" } | null;
   searchTerm: string;
+  countedQuantities: Record<string, number>;
+  handleInputChange: (productId: string, value: number) => void;
 }
 
-export default function InventoryTable({ products, isLoading, message, searchTerm }: InventoryTableProps) {
-  const [countedQuantities, setCountedQuantities] = useState<Record<string, number>>({});
+export default function InventoryTable({
+  products,
+  isLoading,
+  message,
+  searchTerm,
+  countedQuantities,
+  handleInputChange,
+}: InventoryTableProps) {
 
   const filteredProducts = products.filter((product) =>
     product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     product.code.toLowerCase().includes(searchTerm.toLowerCase())
   );
-
-  const handleInputChange = (productId: string, value: number) => {
-    setCountedQuantities((prev) => ({
-      ...prev,
-      [productId]: value,
-    }));
-  };
 
   if (isLoading) {
     return <div className="text-center mt-10">Carregando produtos...</div>;
