@@ -8,6 +8,10 @@ body {
     padding: 0;
 }
 
+main {
+    background-color: #f3f1f1fb;
+}
+
 aside {
     height: 100% !important;
 }

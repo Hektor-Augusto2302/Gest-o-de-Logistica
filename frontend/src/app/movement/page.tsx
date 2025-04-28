@@ -3,7 +3,7 @@
 import PublicRoute from "@/components/auth/PublicRoute";
 import Movement from "@/components/Movement/Movement";
 
-export default function Profile () {
+export default function MovementPage () {
 
     return (
         <PublicRoute>

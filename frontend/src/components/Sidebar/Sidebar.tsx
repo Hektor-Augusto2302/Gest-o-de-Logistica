@@ -63,6 +63,7 @@ export default function Sidebar({ isOpen, isMobile }: SidebarProps) {
                                     <Link href="/registerAdmin" className="text-white no-underline hover:text-gray-400 transition text-sm">Registro de Admin</Link>
                                     <Link href="/registerProduct" className="text-white no-underline hover:text-gray-400 transition text-sm">Registro de Produtos</Link>
                                     <Link href="/listMovements" className="text-white no-underline hover:text-gray-400 transition text-sm">Lista de Movimentações</Link>
+                                    <Link href="/inventory" className="text-white no-underline hover:text-gray-400 transition text-sm">Inventário</Link>
                                 </div>
                             )}
                         </div>

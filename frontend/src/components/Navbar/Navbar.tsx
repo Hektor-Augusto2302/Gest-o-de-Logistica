@@ -20,7 +20,7 @@ export default function Navbar({ toggleSidebar }: NavbarProps) {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
     return (
-        <nav className="fixed top-0 left-0 w-full py-4 md:px-10 z-50 navbar shadow-[0_2px_10px_rgba(0,0,0,0.1)] backdrop-blur-md bg-white/70 dark:bg-gray-900/70">
+        <nav className="fixed top-0 left-0 w-full py-4 md:px-10 z-50 navbar shadow-[0_2px_10px_rgba(0,0,0,0.1)] backdrop-blur-md">
             <div className="max-w-[1600px] mx-auto flex items-center justify-between">
                 <button className="bg-white cursor-pointer border-none" onClick={toggleSidebar}>
                     <Image
