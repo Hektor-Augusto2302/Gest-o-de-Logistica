@@ -19,10 +19,10 @@ export default function InventoryTable({
   countedQuantities,
   handleInputChange,
 }: InventoryTableProps) {
-
-  const filteredProducts = products.filter((product) =>
-    product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    product.code.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredProducts = products.filter(
+    (product) =>
+      product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      product.code.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   if (isLoading) {
@@ -57,7 +57,9 @@ export default function InventoryTable({
                   type="number"
                   className="w-20 px-2 py-1 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 text-center"
                   value={countedQuantities[product._id] || ""}
-                  onChange={(e) => handleInputChange(product._id, Number(e.target.value))}
+                  onChange={(e) =>
+                    handleInputChange(product._id, Number(e.target.value))
+                  }
                   min={0}
                 />
               </td>
@@ -65,6 +67,52 @@ export default function InventoryTable({
           ))}
         </tbody>
       </table>
+
+      <div className="flex flex-col gap-4 sm:hidden mt-5">
+        {filteredProducts.map((product) => (
+          <div
+            key={product._id}
+            className="border p-4 rounded-md shadow-md bg-white dark:bg-gray-800"
+          >
+            <div className="flex justify-between items-center mb-2">
+              <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100">
+                {product.name}
+              </h3>
+              <span className="text-sm text-gray-500">
+                Código: {product.code}
+              </span>
+            </div>
+
+            <div className="text-sm text-gray-600 dark:text-gray-300">
+              <p>
+                <strong>Categoria:</strong> {product.category || "N/A"}
+              </p>
+              <p>
+                <strong>Quantidade Atual:</strong> {product.quantity ?? 0}
+              </p>
+            </div>
+
+            <div className="mt-3">
+              <label
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                htmlFor={`counted-${product._id}`}
+              >
+                Quantidade Contada
+              </label>
+              <input
+                id={`counted-${product._id}`}
+                type="number"
+                className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 text-center dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                value={countedQuantities[product._id] || ""}
+                onChange={(e) =>
+                  handleInputChange(product._id, Number(e.target.value))
+                }
+                min={0}
+              />
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

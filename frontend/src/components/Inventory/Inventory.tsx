@@ -64,8 +64,8 @@ export default function Inventory() {
         <div
           className={`my-4 text-center font-semibold ${
             inventoryMessage.type === "success"
-              ? "text-green-500"
-              : "text-red-500"
+              ? "bg-green-50 text-green-500"
+              : "bg-red-50 text-red-500"
           }`}
         >
           {inventoryMessage.text}
