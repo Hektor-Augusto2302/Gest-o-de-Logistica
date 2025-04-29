@@ -1,4 +1,3 @@
-// src/components/dashboard/DashboardCards.tsx
 "use client";
 
 import Image from "next/image";
