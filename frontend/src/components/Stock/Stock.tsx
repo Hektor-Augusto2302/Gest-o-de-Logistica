@@ -45,7 +45,7 @@ export default function Stock() {
         <h1 className="text-blue-500 font-semibold items-center">Em Estoque</h1>
         <button
           onClick={() => exportProductsToExcel(filteredProducts || [])}
-          className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md font-semibold"
+          className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md font-semibold cursor-pointer"
         >
           Exportar para Excel
         </button>
